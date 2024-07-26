@@ -27,7 +27,7 @@ void main() {
 	albedo.rgb = mix(albedo.rgb, entityColor.rgb * color.rgb, entityColor.a);
 	
 	#ifdef FOG
-	albedo.rgb = mix(albedo.rgb, gl_Fog.color.rgb, getFogStrength(fogShape, gl_Fog.start, gl_Fog.end));
+		albedo.rgb = applyFog(albedo.rgb, gl_Fog.start, gl_Fog.end);
 	#endif
 	
 	gl_FragData[0] = albedo;

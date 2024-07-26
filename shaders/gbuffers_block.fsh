@@ -23,7 +23,7 @@ void main() {
 	vec4 albedo = texture2D(texture, texcoord) * color;
 	
 	#ifdef FOG
-	albedo.rgb = mix(albedo.rgb, gl_Fog.color.rgb, getFogStrength(fogShape, gl_Fog.start, gl_Fog.end));
+		albedo.rgb = applyFog(albedo.rgb, gl_Fog.start, gl_Fog.end);
 	#endif
 	
 	gl_FragData[0] = albedo;
