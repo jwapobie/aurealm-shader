@@ -43,7 +43,8 @@ vec3 applyFog(vec3 input_col, float fogStart, float fogEnd, vec4 worldPos) {
 	float fog_str = min(getHeightFogStrength(fogStart, fogEnd, worldPos) + getBorderFogStrength(fogStart, fogEnd, worldPos), 1.0);
 	vec4 height_fog = vec4(gl_Fog.color.rgb, fog_str);
 	vec4 sky_fog = vec4(skyColor.rgb, getFogStrength(fogStart, fogEnd, worldPos));
-	return mix(mix(input_col, input_col * vec3(0.2) + sky_fog.rgb, sky_fog.a), height_fog.rgb, height_fog.a);
+	vec3 input_col_with_sky = input_col * (1-sky_fog.a) + (sky_fog.rgb * 1.2 + gl_Fog.color.rgb) * sky_fog.a * 0.5;
+	return mix(input_col_with_sky, height_fog.rgb, height_fog.a);
 }
 
 vec3 applyFog(vec3 input_col, float fogStart, float fogEnd) {
