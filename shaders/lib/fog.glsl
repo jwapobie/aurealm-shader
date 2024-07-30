@@ -23,7 +23,7 @@ float getFogStrength(float fogStart, float fogEnd, vec4 worldPos) {
 	fogEnd = fogEnd / 2;
 	float dist;
 	dist = max(length(worldPos.xz), abs(worldPos.y));
-	return clamp((dist + min(fogStart, 0)) / fogEnd, 0, 0.8);
+	return clamp((dist + min(fogStart, -100)) / fogEnd, 0, 0.8);
 }
 
 float getHeightFogFactor(float altitude) {
@@ -32,7 +32,7 @@ float getHeightFogFactor(float altitude) {
 
 float getHeightFogStrength(float fogStart, float fogEnd, vec4 worldPos) {
 	float baseHeightFog = getHeightFogFactor(worldPos.y + cameraPosition.y);
-	float adjustedHeightFog = baseHeightFog * (clamp(length(worldPos.xyz) / 600, 0, 1));
+	float adjustedHeightFog = baseHeightFog * (clamp((length(worldPos.xyz)-50) / 1000, 0, 1));
 	return adjustedHeightFog;
 }
 
